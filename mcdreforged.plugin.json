@@ -1,0 +1,13 @@
+{
+	"id": "jrrp",
+	"version": "1.0.0",
+	"name": "Jrrp Plg",
+	"description": {
+		"en_us": "Test today's luck",
+		"zh_cn": "测试今天的运势"
+	},
+	"author": [
+		"Sky_Dynamic"
+	],
+	"link": "https://github.com/SkyDynamic/jrrp"
+}
