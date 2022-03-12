@@ -10,4 +10,11 @@
 		"Sky_Dynamic"
 	],
 	"link": "https://github.com/SkyDynamic/jrrps"
+	"dependencies": {
+        "mcdreforged": ">=2.0.0",
+    },
+
+    "resources": [
+        "LICENSE"
+    ],
 }
