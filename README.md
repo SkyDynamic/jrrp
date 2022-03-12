@@ -1,3 +1,4 @@
+![](https://img.shields.io/badge/Python-%3E%3D3.7-blue) ![](https://img.shields.io/badge/MCDReforged-%3E%3D2.0-green)
 # Jrrp MCDReforged Plugin Readme
 ### 使用方法
 `<!!jrrp>`测试今天的运势
