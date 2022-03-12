@@ -1,0 +1,55 @@
+# encoding:utf-8
+import os
+import json
+import random
+from apscheduler.schedulers.background import *
+
+from mcdreforged.api.all import *
+
+scheduler = BlockingScheduler()
+Prefix = '!!jrrp'
+default_config = {}
+
+def config(mode, js=None):
+    if js is None:
+        js = {}
+    if mode == 'r':
+        if not os.path.exists('config/jrrp.json'):
+            with open('config/jrrp.json', 'w', encoding='utf-8') as f:
+                json.dump(default_config, f, ensure_ascii=False, indent=4)
+        with open('config/jrrp.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    if mode == 'w':
+        with open('config/jrrp.json', 'w', encoding='utf-8') as f:
+            json.dump(js, f, ensure_ascii=False, indent=4)
+
+@scheduler.scheduled_job('cron', hour=4)
+def Restore_json():
+    with open('config/jrrp.json', 'w', encoding='utf-8') as f:
+        json.dump(default_config, f, ensure_ascii=False, indent=4)
+
+def random1():
+    global playerys,ysmessage
+    playerys = random.randrange(1, 100, 1)
+    ysmessage = '你今天的运势是： ' + str(playerys)
+
+def itrtp(server: ServerInterface, info):
+    cfg = config('r')
+    user_id = str(server.player)
+    if user_id in cfg:
+        server.reply('你已经测试过运势了，不要再测试了')
+        server.reply('你今天的运势是：{}'.format(cfg[user_id]))
+    else:
+        random1()
+        cfg[server.player] = playerys
+        config('w', cfg)
+        server.reply(ysmessage)
+
+def on_load(server: ServerInterface, old):
+    server.register_help_message('!!jrrp', '测运势')
+    server.register_command(
+        Literal(Prefix).runs(itrtp).
+            then(
+                Literal('test').runs(Restore_json)
+            )
+    )
