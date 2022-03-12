@@ -6,8 +6,6 @@ from apscheduler.schedulers.background import *
 
 from mcdreforged.api.all import *
 
-scheduler = BlockingScheduler()
-
 #默认配置，可自定义，配置文件位于MCDReforged/config/jrrp/jrrp_setting.json
 class Config(Serializable):
     luck_bad: str = '今天的运气有点差哦，出门注意车辆行人！'
@@ -42,7 +40,7 @@ def config_data(mode, js=None):
             json.dump(js, f, ensure_ascii=False, indent=4)
 
 #定期删除数据储存json
-@scheduler.scheduled_job('cron', hour=4)
+@new_thread
 def Restore_json():
     with open('config/jrrp/jrrp_data.json', 'w', encoding='utf-8') as f:
         json.dump(default_config, f, ensure_ascii=False, indent=4)
@@ -88,6 +86,12 @@ def bbb():
     elif lucks >= 1:
         wmessage = '§e{}'.format(config.luck_bad)
 
+@new_thread('cron')
+def cron_task():
+    scheduler = BlockingScheduler()
+    scheduler.add_job(Restore_json, 'cron', hour=4)
+    scheduler.start()
+
 def on_load(server: PluginServerInterface, old):
     global config
     config = server.load_config_simple(file_name=ConfigFilePath, in_data_folder=False, target_class=Config)
@@ -98,3 +102,4 @@ def on_load(server: PluginServerInterface, old):
                 Literal('help').runs(lambda server: server.reply(helpmessage))
             )
     )
+    cron_task()
