@@ -72,7 +72,7 @@ def idninjson():
         wmessage = '§e今天的运气一般般~多与朋友聊聊天增进感情哦~'
     elif cfg[user_id] in range(51,80):
         wmessage = '§e今天的运气很好！也许走在马路上能捡到钱哦~'
-    elif cfg[user_id] in range(81,90):
+    elif cfg[user_id] in range(81,99):
         wmessage = '§e今天的运气非常好！也许能遇到桃花运？'
     elif cfg[user_id] == 100:
         wmessage = '§eRNM爬呀！！！！'
