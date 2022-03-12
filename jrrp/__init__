@@ -33,17 +33,49 @@ def random1():
     playerys = random.randrange(1, 100, 1)
     ysmessage = '§b你今天的运势是： §6' + str(playerys)
 
-def itrtp(server: ServerInterface, info):
+def itrtp(server: ServerInterface):
+    global user_id
     cfg = config('r')
     user_id = str(server.player)
     if user_id in cfg:
         server.reply('§4§l你已经测试过运势了，不要再测试了！')
         server.reply('§b你今天的运势是：§6{}'.format(cfg[user_id]))
+        idninjson()
+        server.reply(wmessage)
     else:
         random1()
         cfg[server.player] = playerys
         config('w', cfg)
         server.reply(ysmessage)
+        idnnotinjson()
+        server.reply(wmessage)
+
+def idnnotinjson():
+    global wmessage
+    if playerys in range(0,20):
+        wmessage = '§e今天的运气有点差哦，出门注意车辆行人！'
+    elif playerys in range(21,50):
+        wmessage = '§e今天的运气一般般~多与朋友聊聊天增进感情哦~'
+    elif playerys in range(51,80):
+        wmessage = '§e今天的运气很好！也许走在马路上能捡到钱哦~'
+    elif playerys in range(81,90):
+        wmessage = '§e今天的运气非常好！也许能遇到桃花运？'
+    elif playerys == 100:
+        wmessage = '§eRNM爬呀！！！！'
+
+def idninjson():
+    global wmessage
+    cfg = config('r')
+    if cfg[user_id] in range(0,20):
+        wmessage = '§e今天的运气有点差哦，出门注意车辆行人！'
+    elif cfg[user_id] in range(21,50):
+        wmessage = '§e今天的运气一般般~多与朋友聊聊天增进感情哦~'
+    elif cfg[user_id] in range(51,80):
+        wmessage = '§e今天的运气很好！也许走在马路上能捡到钱哦~'
+    elif cfg[user_id] in range(81,90):
+        wmessage = '§e今天的运气非常好！也许能遇到桃花运？'
+    elif cfg[user_id] == 100:
+        wmessage = '§eRNM爬呀！！！！'
 
 def on_load(server: ServerInterface, old):
     server.register_help_message('!!jrrp', '测运势')
