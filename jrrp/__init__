@@ -31,14 +31,14 @@ def Restore_json():
 def random1():
     global playerys,ysmessage
     playerys = random.randrange(1, 100, 1)
-    ysmessage = '你今天的运势是： ' + str(playerys)
+    ysmessage = '§b你今天的运势是： §6' + str(playerys)
 
 def itrtp(server: ServerInterface, info):
     cfg = config('r')
     user_id = str(server.player)
     if user_id in cfg:
-        server.reply('你已经测试过运势了，不要再测试了')
-        server.reply('你今天的运势是：{}'.format(cfg[user_id]))
+        server.reply('§4§l你已经测试过运势了，不要再测试了！')
+        server.reply('§b你今天的运势是：§6{}'.format(cfg[user_id]))
     else:
         random1()
         cfg[server.player] = playerys
