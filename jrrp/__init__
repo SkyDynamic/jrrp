@@ -48,8 +48,5 @@ def itrtp(server: ServerInterface, info):
 def on_load(server: ServerInterface, old):
     server.register_help_message('!!jrrp', '测运势')
     server.register_command(
-        Literal(Prefix).runs(itrtp).
-            then(
-                Literal('test').runs(Restore_json)
-            )
+        Literal(Prefix).runs(itrtp)
     )
