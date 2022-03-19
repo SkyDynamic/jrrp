@@ -108,8 +108,9 @@ def cron_task():
     scheduler = BlockingScheduler()
     scheduler.add_job(Restore_json, 'cron', hour=4)
     scheduler.start()
+    
 #未Jrrp玩家进入时提醒
-def on_player_joined(server: PluginServerInterface, player: str):
+def on_player_joined(server: PluginServerInterface, player: str, info: Info):
     cfg = config_data('r')
     if player in cfg:
         None
