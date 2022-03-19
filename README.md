@@ -1,8 +1,11 @@
 ![](https://img.shields.io/badge/Python-%3E%3D3.7-blue) ![](https://img.shields.io/badge/MCDReforged-%3E%3D2.0-green)
 # Jrrp MCDReforged Plugin Readme
 ### 使用方法
-`<!!jrrp>`测试今天的运势
+`<!!jrrp>`测试今天的运势  
 `<!!jrrp help>`显示帮助文档  
+`<!!jrrp reload>` 重载插件配置文件  
+`<!!jrrp enable>` 开启插件  
+`<!!jrrp disable>` 关闭插件  
   
 **注：一天不能多次测试，插件会进行阻止，每天4点就会重置**
 ### 配置文件和数据储存文件位置
