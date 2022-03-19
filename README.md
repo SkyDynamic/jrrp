@@ -14,6 +14,8 @@
 ### 配置修改方法
 打开位于`</config/jrrp/>`中的`<jrrp_setting.json>`文件  
 可修改项：  
+`<enable>` 开启插件 默认值：`True`
+`<tips>` 未测提示 默认值：`True`
 `<luck_bad>` 当运势小于21时发送给玩家的文本  
 `<luck_low>`  当运势小于51时发送给玩家的文本  
 `<luck_fine>` 当运势小于81时发送给玩家的文本  
