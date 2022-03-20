@@ -3,7 +3,7 @@ import time
 import os
 import json
 import random
-from apscheduler.schedulers.background import *
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from mcdreforged.api.all import *
 
@@ -22,6 +22,7 @@ config: Config
 ConfigFilePath = os.path.join('config/jrrp', 'jrrp_setting.json')
 Prefix = '!!jrrp'
 default_config = {}
+scheduler = BackgroundScheduler()
 
 helpmessage = '''
 §3{0} §5测试今天的运势
@@ -53,10 +54,12 @@ def config_data(mode, js=None):
             json.dump(js, f, ensure_ascii=False, indent=4)
 
 #定期删除数据储存json
-@new_thread
-def Restore_json():
+@scheduler.scheduled_job('cron', id='Restoredata', hour=4)
+def Restore_data():
     with open('config/jrrp/jrrp_data.json', 'w', encoding='utf-8') as f:
         json.dump(default_config, f, ensure_ascii=False, indent=4)
+
+scheduler.start()
 
 #随机一个数字
 def random1():
@@ -102,12 +105,6 @@ def bbb():
         wmessage = '§e{}'.format(config.luck_low)
     elif lucks >= 1:
         wmessage = '§e{}'.format(config.luck_bad)
-
-#data清理计时器
-def cron_task():
-    scheduler = BlockingScheduler()
-    scheduler.add_job(Restore_json, 'cron', hour=4)
-    scheduler.start()
     
 #未Jrrp玩家进入时提醒
 def on_player_joined(server: PluginServerInterface, player: str, info: Info):
@@ -150,7 +147,7 @@ def disable(src: ServerInterface):
     server = src.get_server()
     config = server.as_plugin_server_interface().load_config_simple(file_name=ConfigFilePath, in_data_folder=False, target_class=Config)
     src.reply('§6插件已关闭')    
-    
+
 def on_load(server: PluginServerInterface, old):
     global config
     config = server.load_config_simple(file_name=ConfigFilePath, in_data_folder=False, target_class=Config)
