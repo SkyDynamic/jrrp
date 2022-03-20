@@ -1,6 +1,6 @@
 {
 	"id": "jrrps",
-	"version": "2.3.1",
+	"version": "2.3.2",
 	"name": "Jrrps Plg",
 	"description": {
 		"en_us": "Test today's luck",
@@ -11,7 +11,8 @@
 	],
 	"link": "https://github.com/SkyDynamic/jrrps",
 	"dependencies": {
-        "mcdreforged": ">=2.0.0"
+        "mcdreforged": ">=2.0.0",
+	    "apscheduler": ">=3.9.1"
     },
 
     "resources": [
